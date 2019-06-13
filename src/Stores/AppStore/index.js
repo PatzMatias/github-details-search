@@ -1,6 +1,6 @@
 class AppStore {
   constructor() {
-    this.appName = "Github Details Search";
+    this.appName = "Github User Search";
   }
 }
 

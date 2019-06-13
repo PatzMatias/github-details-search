@@ -22,7 +22,7 @@ const states = {
 };
 
 export default () => (
-  <div>
+  <div className="h-100">
     <Provider {...states}>
         <Router>
             <App />

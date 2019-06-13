@@ -1,0 +1,17 @@
+.clickable {
+  cursor: pointer;
+  transition: all 0.25s ease-in;
+}
+
+.clickable:hover {
+  background-color: #3a55a0 !important;
+}
+
+.user-card .card-img {
+  border-radius: 100%;
+  margin-top: 1rem;
+}
+
+.user-card .card-text {
+  font-size: 0.9rem;
+}

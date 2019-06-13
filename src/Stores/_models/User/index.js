@@ -16,7 +16,7 @@ class User {
     this.location = json.location;
     this.email = json.email;
     this.bio = json.bio;
-    this.public_repos = json.public_repos;
+    this.publicRepos = json.public_repos;
     this.followers = json.followers;
     this.following = json.following;
     this.createdAt = json.created_at;

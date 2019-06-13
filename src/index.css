@@ -4,9 +4,14 @@
   --dashboard-box-shadow: rgba(100,100,100,0.3);
 }
 
-body {
+html, body {
   background-color: var(--main-bg-color);
   margin: 0px;
   padding: 0px;
+  height: 100%;
   font-family: 'Open Sans', sans-serif;
+}
+
+#root {
+  height: 100%;
 }

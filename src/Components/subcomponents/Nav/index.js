@@ -17,6 +17,10 @@ class Nav extends Component {
     this.props.onKeyDown(e);
   }
 
+  onSearch = (e) => {
+    this.props.onClick(e)
+  }
+
   render() {
     return  (
       <nav className="navbar navbar-dark bg-dark">
@@ -29,7 +33,7 @@ class Nav extends Component {
             aria-label="Username" 
             onChange={this.onChange}
             onKeyDown={this.onKeyDown}/>
-          <button className="btn btn-outline-secondary my-2 my-sm-0">
+          <button className="btn btn-outline-secondary my-2 my-sm-0" onClick={this.onSearch}>
             <FontAwesomeIcon icon={faSearch} />
           </button>
         </div>

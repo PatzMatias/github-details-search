@@ -26,8 +26,14 @@ const Dashboard = inject("appStore", "userStore") (
         this.setState({'username': e.currentTarget.value});
       };
       
-      _handleKeyDown = (e) => {
+      _onKeyDown = (e) => {
         if (this.state.username && e.keyCode === 13) {
+          this.getUserData();
+        }
+      }
+
+      _onSearch = (e) => {
+        if(this.state.username) {
           this.getUserData();
         }
       }
@@ -119,7 +125,8 @@ const Dashboard = inject("appStore", "userStore") (
               <Nav 
                 appName={appStore.appName}
                 onChange={this._onUsernameChange} 
-                onKeyDown={this._handleKeyDown} />
+                onKeyDown={this._onKeyDown} 
+                onClick={this._onSearch}/>
             </div>
             <div className="row search-result-user h-100">
               <div className={profile}>

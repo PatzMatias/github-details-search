@@ -32,8 +32,10 @@ class UserStore {
     try {
       const userRes = await this.getUser(username);
       if(userRes.status === 200) {
-        this.assignError(!this.error);
-        this.clearErrorMessage();
+        if(this.error) {
+          this.assignError(!this.error);
+          this.clearErrorMessage();
+        }
 
         this.assignUser(userRes.data);
 
@@ -43,7 +45,7 @@ class UserStore {
         this.collectRepos(repos.data);
         this.collectOrgs(orgs.data);
        
-      } else if(userRes.status === 400){
+      } else if(userRes.status === 404){
         this.assignError(userRes.status === 404);
         this.assignErrorMessage(`${username} doesn't exist`); 
       } else {

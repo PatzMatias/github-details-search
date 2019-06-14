@@ -7,7 +7,7 @@ export default class RepoCard extends Component {
     const {org} = this.props;
     
     return (
-      <div className="w-100">
+      <div className="w-100 mb-2">
         <div className="org-card card">
           <div className="row no-gutters">
             <div className="col-3 col-sm-3 col-md-2">

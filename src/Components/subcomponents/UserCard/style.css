@@ -13,5 +13,10 @@
 }
 
 .user-card .card-text {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.user-card .joined-text {
+  font-size: 0.8rem;
 }

@@ -30,20 +30,29 @@ class UserStore {
 
   getAllData = async(username) => {
     try {
-      const user = await this.getUser(username);
-      const repos = await this.getRepos(username);
-      const orgs = await this.getOrgs(username);
-     
-      this.assignUser(user.data);
-      this.collectRepos(repos.data);
-      this.collectOrgs(orgs.data);
-      if(this.error) {
-        this.assignError(false);
+      const userRes = await this.getUser(username);
+      if(userRes.status === 200) {
+        this.assignError(!this.error);
         this.clearErrorMessage();
+
+        this.assignUser(userRes.data);
+
+        const repos = await this.getRepos(username);
+        const orgs = await this.getOrgs(username);
+
+        this.collectRepos(repos.data);
+        this.collectOrgs(orgs.data);
+       
+      } else if(userRes.status === 400){
+        this.assignError(userRes.status === 404);
+        this.assignErrorMessage(`${username} doesn't exist`); 
+      } else {
+        this.assignError(userRes.status !== 200);
+        this.assignErrorMessage(userRes.statusText); 
       }
+     
     } catch (error) {
-      this.assignErrorMessage(`${username} doesn't exist`);
-      console.error(error)
+      return error.response;
     }
   };
 
@@ -57,7 +66,7 @@ class UserStore {
   
   getUser = async (username) => {
     try {
-      const user = await api('get', username, '', {}, this.errorCallback);
+      const user = await api('get', username, '', {});
       return user;
     } catch(error) {
       this.error = error;
@@ -66,7 +75,7 @@ class UserStore {
 
   getRepos = async (username) => {
     try {
-      const repos = await api('get', username, '/repos', {}, this.errorCallback);
+      const repos = await api('get', username, '/repos', {});
       return repos;
     } catch(error) {
       return error;
@@ -75,7 +84,7 @@ class UserStore {
 
   getOrgs = async (username) => {
     try {
-      const orgs = await api('get', username, '/orgs', {}, this.errorCallback);
+      const orgs = await api('get', username, '/orgs', {});
       return orgs;
     } catch(error) {
       return error;

@@ -40,7 +40,6 @@ const Dashboard = inject("appStore", "userStore") (
 
       switchData = (value) => {
         // const {activeData} = this.state
-        console.log(value)
         this.setState({'activeData': value});
       };
 

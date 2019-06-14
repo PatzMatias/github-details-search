@@ -11,7 +11,7 @@ const api = async(method, username, path, params) => {
 
   if(method.toLowerCase() === 'get') {
     try {
-      return await await axios.get(`${baseUrl}${username}${path}`, {params: defaultParams});
+      return await axios.get(`${baseUrl}${username}${path}`, {params: defaultParams});
     } catch (error) {
       return error.response;
     }

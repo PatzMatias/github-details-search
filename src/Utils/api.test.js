@@ -1,7 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import api from '../../Utils/api';
+import api from './api';
 
 
 /**API TESTS */

@@ -1,10 +1,8 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class RepoCard extends Component {
-  render() {
-
-    const {org} = this.props;
+ const OrgCard = (props) => {
+    const {org} = props;
     
     return (
       <div className="w-100 mb-2">
@@ -23,5 +21,6 @@ export default class RepoCard extends Component {
         </div>
       </div>
     );
-  }
-}
+};
+
+export default OrgCard;

@@ -4,10 +4,10 @@ import {inject, observer} from 'mobx-react';
 import cn from 'classnames';
 import Nav from '../subcomponents/Nav';
 import UserCard from '../subcomponents/UserCard';
-import RepoCard from '../subcomponents/RepoCard';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
-import OrgCard from '../subcomponents/OrgCard';
+import ReposList from '../subcomponents/ReposList';
+import OrgsList from '../subcomponents/OrgsList';
+import ErrorDisplay from '../subcomponents/ErrorDisplay';
+import InitDisplay from '../subcomponents/InitDisplay';
 import './Dashboard.css';
 
 
@@ -60,58 +60,13 @@ const Dashboard = inject("appStore", "userStore") (
                 `Repositories (${user.publicRepos})` : `Organizations (${orgs ? orgs.length : 0})` }
             </h3>
           </div>
-        )
+        );
       }
 
-      reposList = () => {
-        const {repos} = this.props.userStore;
-        return ( <div className="row">
-          { repos.map(repo => <RepoCard key={repo.id} repo={repo} />) }
-        </div>)
-      }
-
-      orgsList = () => {
-        const {orgs} = this.props.userStore;
-        return (<div className="row no-gutters">
-          { orgs.map(org => <OrgCard key={org.id} org={org} />) }
-        </div>)
-      }
-
-      content = () => {
-        const {error} = this.props.userStore;
-        return !error ? (
-          this.state.activeData === 'repos' ? this.reposList() : this.orgsList() 
-        ) : this.error();
-      }
-
-      error = () => {
-        const {error, errorMessage} = this.props.userStore;
-        return error ? (
-          <div className="row h-100 d-flex justify-content-center align-items-center error-box">
-            <div className="col-6 text-center">
-              <h1><FontAwesomeIcon icon={faTimesCircle}/></h1>
-              <h4>{errorMessage}</h4>
-            </div>
-          </div>
-        ) : null;
-      }
-
-      userEmpty = () => {
-        const {error} = this.props.userStore;
-        return !error ? (
-          <div className="row h-100 d-flex justify-content-center align-items-center user-empty">
-            <div className="col-6 text-center">
-              <h1><FontAwesomeIcon icon={faSearch}/></h1>
-              <h4>Go find someone!</h4>
-            </div>
-          </div>
-        ) : this.error();
-      }
-      
       render() {
         const {appStore, userStore} = this.props;
 
-        const {user, orgs, error} = userStore;
+        const {user, repos, orgs, error, errorMessage} = userStore;
 
         const profile = cn("col-12","col-sm-4","profile",{'bg-primary': user});
         const profileBox = cn('profile-box', {'reveal': user});
@@ -135,12 +90,13 @@ const Dashboard = inject("appStore", "userStore") (
                 </div>
               </div>
               <div className={userData}>
-                {user!== null ? 
+                <InitDisplay active={!error && user === null} />
                 <div className={userDataBox}>
                     {this.header()}
-                    {this.content()}
-                </div> : this.userEmpty()
-              }
+                    <ReposList active={this.state.activeData === 'repos' && user !== null} repos={repos} />
+                    <OrgsList active={this.state.activeData === 'orgs' && user !== null} orgs={orgs} />
+                    <ErrorDisplay error={error} message={errorMessage} />
+                </div>
               </div>
             </div>
           </div>

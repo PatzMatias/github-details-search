@@ -1,0 +1,10 @@
+@media (max-width: 575.98px) { 
+  .navbar {
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar .form-inline {
+    flex-flow: row;
+  }
+}

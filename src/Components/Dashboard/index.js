@@ -6,7 +6,7 @@ import Nav from '../subcomponents/Nav';
 import UserCard from '../subcomponents/UserCard';
 import RepoCard from '../subcomponents/RepoCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import OrgCard from '../subcomponents/OrgCard';
 import './Dashboard.css';
 
@@ -90,6 +90,17 @@ const Dashboard = inject("appStore", "userStore") (
           </div>
         ) : null;
       }
+
+      userEmpty = () => {
+        return (
+          <div className="row h-100 d-flex justify-content-center align-items-center user-empty">
+            <div className="col-6 text-center">
+              <h1><FontAwesomeIcon icon={faSearch}/></h1>
+              <h4>Go find someone!</h4>
+            </div>
+          </div>
+        )
+      }
       
       render() {
         const {appStore, userStore} = this.props;
@@ -100,7 +111,7 @@ const Dashboard = inject("appStore", "userStore") (
         const profileBox = cn('profile-box', {'reveal': user});
         const userDataBox = cn('user-data-box', {'reveal': user || error});
         const userData = cn('col-12','col-sm-8', 'user-data', {'bg-danger': error, 'h-100': error});
-        console.log(error);
+
         return (
           <div className="container h-100">
             <div className="row">
@@ -117,11 +128,13 @@ const Dashboard = inject("appStore", "userStore") (
                 </div>
               </div>
               <div className={userData}>
+                {user!== null ? 
                 <div className={userDataBox}>
                     {this.header()}
                     {this.content()}
                     {this.error()}
-                </div>
+                </div> : this.userEmpty()
+              }
               </div>
             </div>
           </div>

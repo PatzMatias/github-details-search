@@ -9,6 +9,10 @@
   transition: all 0.4s ease-in;
 }
 
+.profile-box {
+  padding-top: 1.75rem;
+}
+
 /* .profile-box, .user-data-box {
   height: 100%;
 } */
@@ -24,13 +28,9 @@
   overflow-y: auto;
 }
 
-.profile-box .card {
-  margin-top: 1.75rem;
-}
-
 .profile-box, .user-data-box {
   opacity: 0;
-  transition: all 0.4s 0.4s ease-in;
+  transition: opacity 0.4s 0.4s ease-in;
   
 }
 
@@ -44,6 +44,7 @@
 
 .user-data-box .list-header {
   margin: 1.75rem 0 1rem;
+  font-weight: 600;
 }
 
 .user-data-box .card {
@@ -81,4 +82,24 @@
   font-size: 4em;
   margin-bottom: 0em;
   color: white;
+}
+
+.user-empty {
+  color: #e2e2e2;
+}
+
+
+@media (max-width: 575.98px) { 
+  .profile, .user-data {
+    height: auto;
+    flex: 0 0 100%;
+  }
+  .user-data {
+    overflow-y: initial;
+    padding-bottom: 1.5rem;
+  }
+  .profile-box {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
 }

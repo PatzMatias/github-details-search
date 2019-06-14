@@ -76,7 +76,7 @@ const Dashboard = inject("appStore", "userStore") (
         const {error} = this.props.userStore;
         return !error ? (
           this.state.activeData === 'repos' ? this.reposList() : this.orgsList() 
-        ) : null
+        ) : this.error();
       }
 
       error = () => {
@@ -92,14 +92,15 @@ const Dashboard = inject("appStore", "userStore") (
       }
 
       userEmpty = () => {
-        return (
+        const {error} = this.props.userStore;
+        return !error ? (
           <div className="row h-100 d-flex justify-content-center align-items-center user-empty">
             <div className="col-6 text-center">
               <h1><FontAwesomeIcon icon={faSearch}/></h1>
               <h4>Go find someone!</h4>
             </div>
           </div>
-        )
+        ) : this.error();
       }
       
       render() {
@@ -132,7 +133,6 @@ const Dashboard = inject("appStore", "userStore") (
                 <div className={userDataBox}>
                     {this.header()}
                     {this.content()}
-                    {this.error()}
                 </div> : this.userEmpty()
               }
               </div>
